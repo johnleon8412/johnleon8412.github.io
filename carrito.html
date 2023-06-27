@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tienda en línea</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #1c1c1c, #092d79);
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    
+    /* Estilos adicionales */
+    #navbar {
+      background: linear-gradient(to right, #1c1c1c, #092d79);
+      padding: 10px;
+    }
+    
+    #navbar a {
+      color: white;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+    
+    #content {
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .category {
+      margin-bottom: 40px;
+    }
+    
+    .category h2 {
+      margin-bottom: 20px;
+    }
+    
+    .product {
+      display: inline-block;
+      width: 200px;
+      border: 1px solid white;
+      padding: 10px;
+      margin: 10px;
+      text-align: center;
+    }
+    
+    .product img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 10px;
+    }
+    
+    /* Resto de estilos existentes */
+    
+    /* Estilos del carrito en tiempo real */
+    #real-time-cart {
+      background-color: #f2f2f2;
+      padding: 10px;
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    #cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #092d79;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    
+    #cart h2 {
+      font-size: 16px;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+    
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    #cart-items li {
+      margin-bottom: 5px;
+    }
+    
+    #cart-total {
+      font-weight: bold;
+    }
+    
+    #checkout-btn {
+      background-color: #1c1c1c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h1>Bienvenido a nuestra tienda en línea</h1>
+    <p>Aquí puedes encontrar una amplia variedad de productos.</p>
+  </div>
+
+  <div id="navbar">
+    <a href="index.html" target="_blank">Página inicial</a>
+    <a href="outlet.html" target="_blank">Productos en Outlet y Descuentos</a>
+  </div>
+
+  <div id="content">
+    <h1>Escoja sus productos</h1>
+    <p>Al final verá el total de su compra</p>
+
+    <div id="products">
+      <div class="category">
+        <h2>Cocina</h2>
+        <div class="product">
+          <img src="cocina1.jpg" alt="Producto 1">
+          <h3>Producto 1</h3>
+          <p>$10.99</p>
+          <button onclick="addToCart('Producto 1', 10.99)">Agregar al carrito</button>
+        </div>
+        <div class="product">
+          <img src="cocina2.jpg" alt="Producto 2">
+          <h3>Producto 2</h3>
+          <p>$12.99</p>
+          <button onclick="addToCart('Producto 2', 12.99)">Agregar al carrito</button>
+        </div>
+      </div>
+
+      <div class="category">
+        <h2>Electrónica</h2>
+        <div class="product">
+          <img src="electronica1.jpg" alt="Producto 3">
+          <h3>Producto 3</h3>
+          <p>$49.99</p>
+          <button onclick="addToCart('Producto 3', 49.99)">Agregar al carrito</button>
+        </div>
+        <div class="product">
+          <img src="electronica2.jpg" alt="Producto 4">
+          <h3>Producto 4</h3>
+          <p>$29.99</p>
+          <button onclick="addToCart('Producto 4', 29.99)">Agregar al carrito</button>
+        </div>
+      </div>
+
+      <div class="category">
+        <h2>Ropa</h2>
+        <div class="product">
+          <img src="ropa1.jpg" alt="Producto 5">
+          <h3>Producto 5</h3>
+          <p>$19.99</p>
+          <button onclick="addToCart('Producto 5', 19.99)">Agregar al carrito</button>
+        </div>
+        <div class="product">
+          <img src="ropa2.jpg" alt="Producto 6">
+          <h3>Producto 6</h3>
+          <p>$14.99</p>
+          <button onclick="addToCart('Producto 6', 14.99)">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="real-time-cart">
+      <h2>Carrito en tiempo real</h2>
+      <ul id="cart-items"></ul>
+      <p>Total: $<span id="cart-total">0.00</span></p>
+      <button id="checkout-btn">Pagar</button>
+    </div>
+  </div>
+
+  <script>
+    // Variables del carrito
+    let cartItems = [];
+    let cartTotal = 0;
+
+    // Función para agregar un producto al carrito
+    function addToCart(productName, price) {
+      cartItems.push({ name: productName, price: price });
+      cartTotal += price;
+
+      // Actualizar el carrito en tiempo real
+      updateCart();
+    }
+
+    // Función para actualizar el carrito en tiempo real
+    function updateCart() {
+      const cartItemsElement = document.getElementById("cart-items");
+      cartItemsElement.innerHTML = "";
+
+      cartItems.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+        cartItemsElement.appendChild(li);
+      });
+
+      document.getElementById("cart-total").textContent = cartTotal.toFixed(2);
+    }
+
+    // Función para procesar el pago
+    function processPayment() {
+      // Lógica para procesar el pago y finalizar la compra
+      alert("Gracias por su compra. Pago procesado exitosamente.");
+
+      // Reiniciar el carrito
+      cartItems = [];
+      cartTotal = 0;
+      updateCart();
+    }
+
+    // Event listener para el botón de pagar
+    document.getElementById("checkout-btn").addEventListener("click", processPayment);
+  </script>
+</body>
+</html>

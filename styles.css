@@ -1,0 +1,42 @@
+*body {
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+#navbar {
+  background-color: black;
+  padding: 10px;
+}
+
+#navbar a {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+#content {
+  padding: 20px;
+}
+
+#footer {
+  background-color: black;
+  padding: 20px;
+  text-align: left;
+}
+
+#contact-form {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+#contact-form input,
+#contact-form button {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#contact-form input[type="text"],
+#contact-form input[type="tel"] {
+  width: 200px;
+}
